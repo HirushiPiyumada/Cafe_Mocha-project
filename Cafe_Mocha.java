@@ -1,6 +1,22 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
+
+/**
+ * Cafe_Mocha Order Management System
+ * This system automates order management for Cafe Mocha, a small café.
+ * Key functionalities include:
+ * - Admin Login and Registration
+ * - Customer Registration
+ * - Menu Management (Add, View)
+ * - Order Placement with Tax and Loyalty Discount
+ * - Persistent File Storage for all Data
+ * - Help Section and Secure Logout
+ *
+ * This program demonstrates modular programming, file handling, user-centric design, 
+ * and real-world system simulation using Java.
+ */
+
 package com.mycompany.cafe_mocha;
 
 import java.io.BufferedReader;
@@ -22,7 +38,14 @@ import java.util.logging.Logger;
  */
 public class Cafe_Mocha {
 
-//Register admin to the system
+/**
+ * Registers a new admin by accepting a username and password.
+ * Ensures username uniqueness and minimum length requirement.
+ * Saves credentials to Cafe_Mocha_Admin.txt.
+ * 
+ * @throws IOException if file write operation fails
+ */
+
     private static void registerAdmin() throws IOException {
         Scanner input = new Scanner(System.in);
 
@@ -63,7 +86,14 @@ public class Cafe_Mocha {
         System.out.println("Admin registered successfully!");
     }
 
-    //check username already registered or not.
+/**
+ * Checks if the provided username already exists in Cafe_Mocha_Admin.txt.
+ * 
+ * @param username Admin username to check
+ * @return true if username is unique, false if already exists
+ * @throws IOException if file read operation fails
+ */
+
     private static boolean isUserNameUnique(String username) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader("Cafe_Mocha_Admin.txt"))) {
             String check;
@@ -77,7 +107,14 @@ public class Cafe_Mocha {
         return true;
     }
 
-    //Admin Login
+/**
+ * Handles admin login by verifying username and password against stored credentials.
+ * Allows maximum 3 attempts before system locks for 30 seconds.
+ * 
+     * @throws java.io.FileNotFoundException
+ * @throws IOException if file read operation fails
+ */
+
     public static void loginAdmin() throws FileNotFoundException, IOException {
         Scanner input = new Scanner(System.in);
         int tryattempt = 0;//Max limit for enter username and password
@@ -121,8 +158,13 @@ public class Cafe_Mocha {
         System.out.println("Please Try Again for login");
     }
 
-    //Password Masked Method 
-    // Note: Password masking works in console environments but may not work in all IDEs
+/**
+ * Masks the password input (where supported). 
+ * If console password masking is unavailable, plain text input is used.
+ * Note: Password masking works in console environments but may not work in all IDEs
+ * @param input Scanner object for reading input
+ * @return String representing the password entered
+ */
     public static String maskPassword(Scanner input) {
         Console console = System.console();
         if (console != null) {
@@ -134,7 +176,16 @@ public class Cafe_Mocha {
         }
     }
 
-    //Check username and password is saved in file. username and password are parameters and return booleas\n value from this method
+/**
+// * Validates the provided username and password against records in Cafe_Mocha_Admin.//txt.
+ * 
+ * @param username Admin username
+ * @param password Admin password
+ * @return true if credentials are valid, false otherwise
+     * @throws java.io.FileNotFoundException
+ * @throws IOException if file read operation fails
+ */
+
     public static boolean validUsernameAndPassword(String username, String password) throws FileNotFoundException, IOException {
         try {
             BufferedReader reader = new BufferedReader(new FileReader("Cafe_Mocha_Admin.txt"));
@@ -154,7 +205,13 @@ public class Cafe_Mocha {
         return false;
     }
 
-    //show admin menu
+/**
+ * Displays the Admin Menu and handles all admin-related actions (register customer, place order, etc.).
+ * Menu options are handled using a switch statement.
+ * 
+ * @throws IOException if any file operation fails
+ */
+
     public static void showAdminMenu() throws IOException {
         Scanner input = new Scanner(System.in);
         while (true) {
@@ -200,7 +257,13 @@ public class Cafe_Mocha {
         }
     }
 
-    //Register Customer to the system
+/**
+ * Registers a new customer by accepting personal details (name, mobile number, address).
+ * Ensures mobile number is unique and exactly 10 digits.
+ * Saves customer details to Cafe_Mocha_Customer.txt.
+ * 
+ * @throws IOException if file write operation fails
+ */
     public static void registerCustomer() throws IOException {
         //Get Customer Details
         Scanner input = new Scanner(System.in);
@@ -236,7 +299,16 @@ public class Cafe_Mocha {
         }
     }
 
-    //save customer firstname, lastname, mobilenumber,address in the "Cafe_Mocha_Customer.txt" file as a get paraeters. 
+/**
+ * Saves customer details into Cafe_Mocha_Customer.txt.
+ * 
+ * @param firstname Customer's first name
+ * @param lastname Customer's last name
+ * @param mobilenumber Customer's mobile number
+ * @param address Customer's address
+ * @throws IOException if file write operation fails
+ */
+
     public static void savedCustomerDetails(String firstname, String lastname, String mobilenumber, String address) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("Cafe_Mocha_Customer.txt", true))) {
             writer.append(firstname).append(" ").append(lastname).append(" ").append(mobilenumber).append(" ").append(address);
@@ -244,7 +316,14 @@ public class Cafe_Mocha {
         }
     }
 
-//check mobilenumber is already registerd using mobile parameter. Pass true or false boolean value. 
+/**
+// * Checks if a customer mobile number already exists in Cafe_Mocha_Customer.txt.
+ * 
+ * @param mobileNumber Mobile number to check
+ * @return true if mobile number already exists, false otherwise
+ * @throws IOException if file read operation fails
+ */
+
     public static boolean checkSavedMobileNumber(String mobileNumber) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader("Cafe_Mocha_Customer.txt"))) {
             String line;
@@ -258,7 +337,13 @@ public class Cafe_Mocha {
         return false;
     }
 
-//Get order from the customer
+/**
+ * Starts the order placement process for an existing customer.
+ * Displays menu, takes item selections, quantities, and calculates bill.
+ * 
+ * @throws IOException if file operations fail
+ */
+
     public static void getOrderFromCustomer() throws IOException {
         Scanner input = new Scanner(System.in);
         System.out.print("Enter Mobile Number: ");
@@ -295,7 +380,13 @@ public class Cafe_Mocha {
         calculateBill(mobileNumber, orderDetails, quantities);
     }
 
-//get cutomer first name and last name from file for the bill. Use mobilenumber for parameter. Because details get according to the mobile number
+/**
+ * Retrieves and displays customer name from Cafe_Mocha_Customer.txt based on mobile number.
+ * 
+ * @param mobileNumber Customer's mobile number
+ * @throws IOException if file read operation fails
+ */
+
     public static void getCustomerDetails(String mobileNumber) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader("Cafe_Mocha_Customer.txt"))) {
             String line;
@@ -312,7 +403,12 @@ public class Cafe_Mocha {
         }
     }
 
-//This method for view menu form "Cafe_Mocha_Menu.txt" file.
+/**
+ * Reads and displays all items from Cafe_Mocha_Menu.txt.
+ * 
+ * @throws IOException if file read operation fails
+ */
+
     public static void viewMenu() throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader("Cafe_Mocha_Menu.txt"))) {
             String line;
@@ -322,7 +418,15 @@ public class Cafe_Mocha {
         }
     }
 
-//This for save orders in "Cafe_Mocha_Order.txt" file. Get mobilenumber order details value from parameters.
+/**
+// * Saves customer's order details to Cafe_Mocha_Order.txt.
+ * 
+ * @param mobileNumber Customer's mobile number
+ * @param orderDetails List of item codes ordered
+ * @param quantities List of quantities for each item
+ * @throws IOException if file write operation fails
+ */
+
     public static void saveCustomerOrder(String mobileNumber, ArrayList<String> orderDetails, ArrayList<String> quantities) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("Cafe_Mocha_Order.txt", true))) {
             writer.append("Mobile: ").append(mobileNumber);
@@ -336,7 +440,15 @@ public class Cafe_Mocha {
         }
     }
 
-//From this calling getCustomerDetails() and getCustomerOrderDetails() method passing arguments. 
+/**
+ * Calculates and displays the total bill including tax and loyalty discount.
+ * 
+ * @param mobileNumber Customer's mobile number
+ * @param orderDetails List of item codes ordered
+ * @param quantities List of quantities
+ * @throws IOException if file operations fail
+ */
+
     public static void calculateBill(String mobileNumber, ArrayList<String> orderDetails, ArrayList<String> quantities) throws IOException {
         try {
 
@@ -394,7 +506,13 @@ public class Cafe_Mocha {
         }
     }
 
-//load menu items
+/**
+ * Loads all menu items into a list of item code, name, and price.
+ * 
+ * @return ArrayList of menu items (each item is a String array)
+ * @throws IOException if file read operation fails
+ */
+
     private static ArrayList<String[]> loadMenuItems() throws IOException {
         ArrayList<String[]> menuItems = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader("Cafe_Mocha_Menu.txt"))) {
@@ -431,7 +549,14 @@ public class Cafe_Mocha {
         }
     }
 
-//This for print bill to the customer. Using parameters get mobilenumber and total. Also add disscount for bill.
+    /**
+ * Prints the final bill summary including subtotal, tax, loyalty discount, and total.
+ * 
+ * @param total //Pre-tax and pre-discount total
+ * @param mobileNumber Customer's mobile number
+ * @throws IOException if file read operation fails
+ */
+
     private static void printBillSummary(double total, String mobileNumber) throws IOException {
         double tax = total * 0.10;
         boolean isReturnCustomer = checkReturnCustomer(mobileNumber);
@@ -463,7 +588,10 @@ public class Cafe_Mocha {
         return false;
     }
 
-//This method for display the help guides for users
+/**
+ * Displays a help section explaining how to use each part of the system.
+ */
+
     public static void helpSystem() {
         System.out.println("========== System Usage Guidelines ==========");
         System.out.println("1. Login & Access:");
@@ -513,7 +641,14 @@ public class Cafe_Mocha {
 
     }
 
-//This method for add new item to the menu
+/**
+ * Allows admin to add a new item to the menu under selected category (Drinks, Snacks, Desserts).
+ * Ensures item code is unique and matches category-specific format.
+ * //Saves new item to Cafe_Mocha_Menu.txt.
+ * 
+ * @throws IOException if file read/write operations fail
+ */
+
     public static void addNewItem() throws IOException {
 
         Scanner input = new Scanner(System.in);
@@ -639,16 +774,22 @@ public class Cafe_Mocha {
             updatedLines.add(newLine);
         }
 
-        BufferedWriter writer = new BufferedWriter(new FileWriter("Cafe_Mocha_Menu.txt"));
-        for (String updatedLine : updatedLines) {
-            writer.write(updatedLine);
-            writer.newLine();
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("Cafe_Mocha_Menu.txt"))) {
+            for (String updatedLine : updatedLines) {
+                writer.write(updatedLine);
+                writer.newLine();
+            }
         }
-        writer.close();
         System.out.println("Item Added Successfully. ");
     }
 
-//This method for view all the orders
+/**
+ * Displays all stored orders from Cafe_Mocha_Order.txt.
+ * 
+     * @throws java.io.FileNotFoundException
+ * @throws IOException if file read operation fails
+ */
+
     public static void viewAllOrders() throws FileNotFoundException, IOException {
         BufferedReader reader = new BufferedReader(new FileReader("Cafe_Mocha_Order.txt"));
         System.out.println("=========AllOrders===========");
@@ -664,13 +805,25 @@ public class Cafe_Mocha {
 
     }
 
-//This for exit from the system.
+/**
+ * Handles secure logout by printing a confirmation message.
+ */
+
     public static void logOut() {
         System.out.println("Log Out..........");
         System.out.println("Logout Successfully. Come Again!");
     }
 
-//In main method display main menu for the users
+/**
+ * Entry point of the system.
+ * Displays main menu and handles main system options.
+ * Initializes required data files if they do not exist.
+ * 
+ * @param args Command line arguments
+     * @throws java.io.FileNotFoundException
+ * @throws IOException if file operations fail
+ */
+
     public static void main(String[] args) throws FileNotFoundException, IOException {
         Scanner input = new Scanner(System.in);
 
@@ -695,7 +848,7 @@ public class Cafe_Mocha {
         //Menu Loop
         while (true) {
             System.out.println("Welcome To Cafe Mocha ");
-            System.err.println("============================");
+            System.out.println("============================");
             System.out.println("1. Admin Login");
             System.out.println("2. Admin Registration");
             System.out.println("3. Help");
