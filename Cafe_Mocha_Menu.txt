@@ -1,0 +1,38 @@
+Drinks :
+Item Code 	Item 			Price (LKR)
+D001	  	Espresso		450.00
+D002	  	Cappuccino		550.00
+D003	  	Latte			600.00
+D004	  	Mocha			650.00
+D005	  	Hot Chocolate		500.00
+D006	  	Iced Coffee   		600.00
+D007	  	Green Tea     		400.00
+D008      	Milkshake(Chocolate)	700.00
+D009	  	Milkshake(Strawberry)	700.00
+D010	  	Fresh Juice(Orange)	500.00
+
+
+Snacks :
+Item Code	Item			Price (LKR)
+S001		Chicken Sandwich	800.00
+S002		Veggie Sandwich		700.00
+S003		Cheese Toast		650.00
+S004		Chocolate Muffin	500.00
+S005		Blueberry Muffin	500.00
+S006		Croissant		450.00
+S007		Chicken Pie		750.00
+S008		Egg Roll		400.00                
+s010           hirushi                  200.00
+
+
+Desserts :
+Item Code	Item			Price (LKR)
+DS001		Chocolate Cake Slice	800.00
+DS002		Cheesecake Slice	900.00
+DS003		Fruit Tart		750.00
+DS004		Brownie			600.00
+DS005		Ice Cream (2 Scoops)	550.00
+
+DS006        Milo Iced                  400.00
+                
+
